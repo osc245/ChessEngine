@@ -3,10 +3,6 @@ class Piece:
         self.isWhite = isWhite
 
     @staticmethod
-    def getDiff(pos):
-        return [pos[2] - pos[0], pos[3] - pos[1]]
-
-    @staticmethod
     def checkClearLine(pos, board):
         dy, dx = Piece.getDiff(pos)
         if dx == 0:
@@ -31,6 +27,12 @@ class Piece:
         yDir = 1 if pos[0] < pos[2] else -1
         xDir = 1 if pos[1] < pos[3] else -1
         for i in range(1, abs(dx)):
-            if self.board[pos[0] + i * yDir][pos[1] + i * xDir] is not None:
+            if board[pos[0] + i * yDir][pos[1] + i * xDir] is not None:
                 return False
         return True
+
+    @staticmethod
+    def getDiff(pos):
+        return [pos[2] - pos[0], pos[3] - pos[1]]
+
+

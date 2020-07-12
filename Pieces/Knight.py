@@ -10,6 +10,6 @@ class Knight(Piece):
             return "n"
 
     @staticmethod
-    def validMove(pos):
+    def validMove(pos, board):
         dy, dx = Piece.getDiff(pos)
         return (abs(dy) == 1 and abs(dx) == 2) or (abs(dy) == 2 and abs(dx) == 1)

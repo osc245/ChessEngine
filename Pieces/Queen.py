@@ -11,5 +11,8 @@ class Queen(Piece):
 
     @staticmethod
     def validMove(pos, board):
-        return Piece.checkClearLine(pos, board) and Piece.checkClearDiagonal(pos, board)
+        if pos[0] - pos[2] == 0 or pos[1] - pos[3] == 0:
+            return Piece.checkClearLine(pos, board)
+        else:
+            return Piece.checkClearDiagonal(pos, board)
 
