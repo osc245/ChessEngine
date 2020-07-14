@@ -11,6 +11,8 @@ class Bishop(Piece):
 
     @staticmethod
     def validMove(pos, board):
+        if not (Piece.validCapture(pos, board) or Piece.validMove(pos, board)):
+            return False
         return Piece.checkClearDiagonal(pos, board)
 
 

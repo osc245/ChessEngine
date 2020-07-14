@@ -3,6 +3,15 @@ class Piece:
         self.isWhite = isWhite
 
     @staticmethod
+    def validCapture(pos, board):
+        opPiece = board[pos[2]][pos[3]]
+        return opPiece is not None and opPiece.isWhite != board[pos[0]][pos[1]].isWhite
+
+    @staticmethod
+    def validMove(pos, board):
+        return board[pos[2]][pos[3]] is None
+
+    @staticmethod
     def checkClearLine(pos, board):
         dy, dx = Piece.getDiff(pos)
         if dx == 0:

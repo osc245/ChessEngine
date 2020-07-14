@@ -28,10 +28,11 @@ class Pawn(Piece):
                     return True
         if abs(dx) == 1:
             if (self.isWhite and dy == 1) or (not self.isWhite and dy == -1):
-                if board[pos[2]][pos[3]] is not None:  # capturing regularly
+                if board[pos[2]][pos[3]] is not None and Piece.validCapture(pos, board):  # capturing regularly
                     self.enPassen = False
                     return True
                 if (self.isWhite and dy == 1) or (not self.isWhite and dy == -1):  # capturing en passen
-                    if isinstance(board[pos[0]][pos[3]], Pawn) and board[pos[0]][pos[3]].enPassen:
+                    if isinstance(board[pos[0]][pos[3]], Pawn) and board[pos[0]][pos[3]].enPassen\
+                            and board[pos[0]][pos[3]].isWhite != board[pos[0]][pos[1]].isWhite:
                         return True
         return False

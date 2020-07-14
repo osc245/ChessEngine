@@ -36,24 +36,25 @@ class Board:
         board += "  a b c d e f g h"
         return board
 
-    """
-    pos is a list of format: [old row, old column, new row, new column, specialMove]
-    special move is left blank if regular move or capture but is otherwise: enPassen, castle or piece to promote to
-    return false is the provided move in invalid
-    """
     def move(self, pos):
         for i in range(4):
             pos[i] = int(pos[i])
-        if not self.checkMove(pos):
+        if self.checkMove(pos):
+            self.tryMove(pos)
+            return True
+        else:
             return False
-        tempBoard = self.tryMove(pos)
-        if tempBoard.inCheck():
-            return False
-        self.board = tempBoard.board
-        self.whitesTurn = not self.whitesTurn
-        return True
 
     def checkMove(self, pos):
+        if not self.validMovement(pos):
+            return False
+        tempBoard = copy.deepcopy(self)
+        tempBoard.tryMove(pos)
+        if tempBoard.inCheck(self.whitesTurn):
+            return False
+        return True
+
+    def validMovement(self, pos):
         for x in pos[:4]:  # invalid position
             if x < 0 or x > 7:
                 return False
@@ -66,55 +67,47 @@ class Board:
         return self.board[pos[0]][pos[1]].validMove(pos, self.board)
 
     # checks whether player would be in check if they made proposed move
-    def inCheck(self):
-        self.whitesTurn = not self.whitesTurn
-        pieces = self.getPieces()
-        king = self.getKing()
+    def inCheck(self, white):
+        self.whitesTurn = not white
+        pieces = self.getPieces(not white)
+        king = self.getKing(white)
         for x in pieces:
-            if self.checkMove(x + king):
+            if self.validMovement(x + king + [""]):
                 return True
         return False
 
     def tryMove(self, pos):
-        temp = copy.deepcopy(self)
-        temp.board[pos[2]][pos[3]] = temp.board[pos[0]][pos[1]]
-        temp.board[pos[0]][pos[1]] = None
+        self.board[pos[2]][pos[3]] = self.board[pos[0]][pos[1]]
+        self.board[pos[0]][pos[1]] = None
         if pos[4] == "ep":
-            temp.board[pos[0]][pos[3]] = None
+            self.board[pos[0]][pos[3]] = None
         if pos[4] == "kc" or pos[4] == "qc":
             row = 0 if self.whitesTurn else 7
             if pos[4] == "kc":
-                print(True)
-                temp.board[row][5] = temp.board[row][7]
-                temp.board[row][7] = None
+                self.board[row][5] = self.board[row][7]
+                self.board[row][7] = None
             else:
-                temp.board[row][3] = temp.board[row][0]
-                temp.board[row][0] = None
+                self.board[row][3] = self.board[row][0]
+                self.board[row][0] = None
         if pos[4] in ["N", "B", "R", "Q"]:
             if pos[4] == "N":
-                temp.board[pos[2]][pos[3]] = Knight(self.whitesTurn)
+                self.board[pos[2]][pos[3]] = Knight(self.whitesTurn)
             elif pos[4] == "B":
-                temp.board[pos[2]][pos[3]] = Bishop(self.whitesTurn)
+                self.board[pos[2]][pos[3]] = Bishop(self.whitesTurn)
             elif pos[4] == "R":
-                temp.board[pos[2]][pos[3]] = Rook(self.whitesTurn)
+                self.board[pos[2]][pos[3]] = Rook(self.whitesTurn)
             elif pos[4] == "Q":
-                temp.board[pos[2]][pos[3]] = Queen(self.whitesTurn)
-        return temp
+                self.board[pos[2]][pos[3]] = Queen(self.whitesTurn)
+        return self
 
-    # returns the positions of the pieces of the player who's turn it is not
-    def getPieces(self):
+    def getPieces(self, white):
         return [[i, j] for i in range(8) for j in range(8) if self.board[i][j] is not None and
-                self.board[i][j].isWhite == self.whitesTurn]
+                not isinstance(self.board[i][j], King) and self.board[i][j].isWhite == white]
 
-    # returns the position of the king of the player who's turn it is
-    def getKing(self):
+    def getKing(self, white):
         return [[i, j] for i in range(8) for j in range(8) if isinstance(self.board[i][j], King) and
-                self.board[i][j].isWhite != self.whitesTurn][0]
+                self.board[i][j].isWhite == white][0]
 
-    def mate(self):
-        pass
 
-    def stalemate(self):
-        pass
 
 

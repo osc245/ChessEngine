@@ -14,7 +14,7 @@ class Rook(Piece):
             return "r"
 
     def validMove(self, pos, board):
-        if Piece.checkClearLine(pos, board):
+        if Piece.checkClearLine(pos, board) and (Piece.validCapture(pos, board) or Piece.validMove(pos, board)):
             self.moved = True
             return True
         else:
