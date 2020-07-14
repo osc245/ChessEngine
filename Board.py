@@ -67,7 +67,15 @@ class Board:
             return False
         if self.whitesTurn != self.board[pos[0]][pos[1]].isWhite:  # wrong colour moving
             return False
-        return self.board[pos[0]][pos[1]].validMove(pos, self.board)
+        if not self.board[pos[0]][pos[1]].validMove(pos, self.board):
+            return False
+        if pos[4] == "kc" or pos[4] == "qc":
+            move = pos[:]
+            move[3] = 3 if pos[3] - pos[1] == -2 else 5
+            move[4] = ""
+            if not self.checkMove(move):
+                return False
+        return True
 
     # checks whether the player specified by the parameter is in check
     def inCheck(self, white):

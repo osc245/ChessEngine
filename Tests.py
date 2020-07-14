@@ -247,6 +247,19 @@ class Tests(unittest.TestCase):
                     "  a b c d e f g h")
         self.assertEqual(runTest(moves), expected)
 
+    def test31(self):
+        moves = "e2-e4 b7-b6 Ng1-f3 Bc8-a6 Bf1-b5 Ba6xb5 O-O"
+        expected = ("8|r|n|_|q|k|b|n|r|\n"
+                    "7|p|_|p|p|p|p|p|p|\n"
+                    "6|_|p|_|_|_|_|_|_|\n"
+                    "5|_|b|_|_|_|_|_|_|\n"
+                    "4|_|_|_|_|P|_|_|_|\n"
+                    "3|_|_|_|_|_|N|_|_|\n"
+                    "2|P|P|P|P|_|P|P|P|\n"
+                    "1|R|N|B|Q|K|_|_|R|\n"
+                    "  a b c d e f g h")
+        self.assertEqual(runTest(moves), expected)
+
     # en passen
     def test14(self):
         moves = "a2-a4 h7-h6 a4-a5 b7-b5 a5xb6ep"

@@ -26,10 +26,10 @@ class King(Piece):
                 return False
             row = 0 if self.isWhite else 7
             column = 0 if dx == -2 else 7
-            if isinstance(board[row][column], Rook) and not board[row][column].moved:
-                move = [pos[0], pos[1], row, column]
-                if Piece.checkClearLine(move, board):
-                    self.moved = True
-                    return True
+            if not isinstance(board[row][column], Rook) or board[row][column].moved:
+                return False
+            move = [pos[0], pos[1], row, column]
+            if Piece.checkClearLine(move, board):
+                return True
         return False
 
