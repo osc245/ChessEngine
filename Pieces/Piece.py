@@ -2,11 +2,13 @@ class Piece:
     def __init__(self, isWhite):
         self.isWhite = isWhite
 
+    # there is a piece of opposite colour on capturing square
     @staticmethod
     def validCapture(pos, board):
         opPiece = board[pos[2]][pos[3]]
         return opPiece is not None and opPiece.isWhite != board[pos[0]][pos[1]].isWhite
 
+    # no piece on the square about to be moved to
     @staticmethod
     def validMove(pos, board):
         return board[pos[2]][pos[3]] is None
@@ -40,6 +42,7 @@ class Piece:
                 return False
         return True
 
+    # returns the change in rows and columns from a move
     @staticmethod
     def getDiff(pos):
         return [pos[2] - pos[0], pos[3] - pos[1]]

@@ -36,6 +36,7 @@ class Board:
         board += "  a b c d e f g h"
         return board
 
+    # updates board with given move, if possible and returns True or False depending on whether the move could be made
     def move(self, pos):
         for i in range(4):
             pos[i] = int(pos[i])
@@ -45,6 +46,7 @@ class Board:
         else:
             return False
 
+    # checks whether the move is valid and the player is not in check after making it
     def checkMove(self, pos):
         if not self.validMovement(pos):
             return False
@@ -54,6 +56,7 @@ class Board:
             return False
         return True
 
+    # checks whether the proposed movement is valid
     def validMovement(self, pos):
         for x in pos[:4]:  # invalid position
             if x < 0 or x > 7:
@@ -66,7 +69,7 @@ class Board:
             return False
         return self.board[pos[0]][pos[1]].validMove(pos, self.board)
 
-    # checks whether player would be in check if they made proposed move
+    # checks whether the player specified by the parameter is in check
     def inCheck(self, white):
         self.whitesTurn = not white
         pieces = self.getPieces(not white)
@@ -76,6 +79,7 @@ class Board:
                 return True
         return False
 
+    # will update the board with a given move
     def tryMove(self, pos):
         self.board[pos[2]][pos[3]] = self.board[pos[0]][pos[1]]
         self.board[pos[0]][pos[1]] = None

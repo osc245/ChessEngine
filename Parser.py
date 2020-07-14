@@ -1,7 +1,8 @@
 toNum = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5, "g": 6, "h": 7}
 
 
-# converts a list of moves in long algebraic form to moves of format [oldRow, oldCol, newRow, newCol]
+# converts a list of moves in long algebraic form to moves of format [oldRow, oldCol, newRow, newCol, specialMove]
+# where special move can denote castling, en passen or piece to promote to
 def parseMoves(coOrdinates):
     moves = []
     moveList = coOrdinates.split()
