@@ -11,8 +11,6 @@ To castle: O-O
 If move delivers check write “+” at the end: e2-e3+  
 
 Limits:  
-I didn't fully implement all the rules. The three main issues in the program that come to mind are:  
+Two issues with the program are:    
 1) The program isn't that strict with move notation so it accepts all valid moves but doesn't reject all invalid moves. For example, if you said Ba1-b2 instead of Ba1xb2 when capturing the program will still accept that move.  
 2) The program doesn't check for checkmates or stalemates and end the game if one occurs.  
-3) The program doesn't check that the king didn't move through a check when castling.  
-
