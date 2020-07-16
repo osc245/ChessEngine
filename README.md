@@ -1,4 +1,4 @@
-# ChessEngine
+# ChessProgram
 I did this project to practice OOP in Python. This is my first Python project so please forgive any Javaisms that have bled into my Python programming. The program includes a parser that converts chess notation into rows and columns and also has a few dozen unit tests. To run the program paste moves (one or many) in the console and the program will either show the board after those moves have been completed or print the first invalid move entered.
 
 Chess notation:  
