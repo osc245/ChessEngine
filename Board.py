@@ -16,10 +16,6 @@ class Board:
                       [Pawn(False) for x in range(8)],
                       [Rook(False), Knight(False), Bishop(False), Queen(False), King(False), Bishop(False),
                        Knight(False), Rook(False)]]
-        self.whitePieces = [[i, j] for i in range(2) for j in range(8) if i != 0 or j != 4]
-        self.blackPieces = [[i, j] for i in range(6, 8) for j in range(8) if i != 7 or j != 4]
-        self.whiteKing = [0, 4]
-        self.blackKing = [7, 4]
         self.whitesTurn = True
 
     def toString(self):
